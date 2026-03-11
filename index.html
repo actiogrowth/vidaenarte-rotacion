@@ -209,6 +209,14 @@ html, body {
   animation: fadeIn 1.2s ease both;
 }
 
+@media (max-width: 640px) {
+  .wheel-wrap {
+    width: min(360px, 92vw);
+    height: min(360px, 92vw);
+    margin-bottom: 0;
+  }
+}
+
 /* outer glow ring */
 .wheel-wrap::before {
   content: '';
@@ -331,6 +339,56 @@ html, body {
   width: 200px;
   flex-shrink: 0;
   animation: fadeUp 1.3s ease both;
+}
+
+/* ── RESPONSIVE MÓVIL ── */
+@media (max-width: 640px) {
+  body { padding: 12px 8px; }
+
+  .wheel-and-legend {
+    flex-direction: column;
+    left: 0;
+    gap: 24px;
+    margin-bottom: 20px;
+  }
+
+  #wheelSvg {
+    width: min(92vw, 360px) !important;
+    height: min(92vw, 360px) !important;
+  }
+
+  .legend {
+    width: 100%;
+    max-width: 400px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .legend-item {
+    width: calc(50% - 6px);
+    padding: 8px 10px;
+  }
+
+  .legend-text { font-size: 0.72rem; }
+  .legend-sub  { font-size: 0.62rem; }
+
+  .tabs { gap: 4px; }
+  .tab  { font-size: 0.7rem; padding: 6px 10px; }
+
+  .blocks { gap: 6px; }
+  .block-btn { font-size: 0.68rem; padding: 5px 8px; }
+
+  .schedule-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    font-size: 0.72rem;
+  }
+
+  h1 { font-size: 1.1rem; }
+  .subtitle { font-size: 0.7rem; }
 }
 
 .legend-item {
@@ -597,7 +655,10 @@ function redrawWheel() {
     const textR = (bandR + innerR) / 2;
     const tx = cx + textR * Math.cos(mid);
     const ty = cy + textR * Math.sin(mid);
-    const rot = (mid * 180 / Math.PI) + 90;
+    // Voltear texto en mitad inferior para legibilidad
+    const midNorm = ((mid % (2*Math.PI)) + 2*Math.PI) % (2*Math.PI);
+    const isBottom = midNorm > 0 && midNorm < Math.PI;
+    const rot = isBottom ? (mid * 180 / Math.PI) + 90 + 180 : (mid * 180 / Math.PI) + 90;
 
     const specialLabel = currentBlock===0 ? '👋 Bienvenida'
                         : currentBlock===1 ? '🍎 Let\'s Eat'
