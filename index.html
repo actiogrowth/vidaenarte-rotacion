@@ -17,11 +17,11 @@
   --muted: rgba(232,240,255,0.4);
   --accent: #00d4ff;
 
-  --c0: #5c96b4;
+  --c0: #C0C0C0;
   --c1: #ff2d3a;
   --c2: #ff6b1a;
   --c3: #1a9bbf;
-  --c4: #5c96b4;
+  --c4: #C0C0C0;
   --c5: #a8e63d;
   --c6: #ffe800;
   --c7: #d527c9;
@@ -288,7 +288,7 @@ html, body {
   top: -22px;
   left: 50%;
   transform: translateX(-50%);
-  background: #5c96b4;
+  background: #C0C0C0;
   color: #fff;
   font-family: 'Exo 2', sans-serif;
   font-size: 0.52rem;
@@ -586,11 +586,11 @@ window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
 
 // ── DATA ──────────────────────────────────────────────────────────────────
 const STATIONS = [
-  { label: "Let's Play",    sub: 'Parkids',     color: '#5c96b4', glow: '#5c96b4', emoji: '🏃', desc: 'Parkour adaptado — coordinación, equilibrio, fuerza' },
+  { label: "Let's Play",    sub: 'Parkids',     color: '#C0C0C0', glow: '#C0C0C0', emoji: '🏃', desc: 'Parkour adaptado — coordinación, equilibrio, fuerza' },
   { label: "Let's Grow",    sub: '',            color: '#ff2d3a', glow: '#ff2d3a', emoji: '🌱', desc: 'Resolución de problemas — pensamiento lógico' },
   { label: "Let's Create",  sub: '',            color: '#ff6b1a', glow: '#ff6b1a', emoji: '🎨', desc: 'Artes plásticas — expresión visual y motricidad' },
   { label: "Let's Be",      sub: '',            color: '#1a9bbf', glow: '#1a9bbf', emoji: '💙', desc: 'Socioemocional — autoestima y empatía' },
-  { label: "Let's Play",    sub: 'Aerial Play', color: '#5c96b4', glow: '#5c96b4', emoji: '🎪', desc: 'Telas, aro y trapecio — fuerza y superación' },
+  { label: "Let's Play",    sub: 'Aerial Play', color: '#C0C0C0', glow: '#C0C0C0', emoji: '🎪', desc: 'Telas, aro y trapecio — fuerza y superación' },
   { label: "Let's Count",   sub: '& Read',      color: '#a8e63d', glow: '#a8e63d', emoji: '🔢', desc: 'Numeración y lectoescritura — multisensorial' },
   { label: "Let's Speak",   sub: '',            color: '#ffe800', glow: '#ffe800', emoji: '🎭', desc: 'Teatro, música y poesía — comunicación' },
   { label: "Let's Discover",sub: '',            color: '#d527c9', glow: '#d527c9', emoji: '🔬', desc: 'Ciencias — curiosidad y método científico' },
@@ -673,7 +673,7 @@ function redrawWheel() {
     const lines = [st.emoji, st.label];
     if (st.sub) lines.push(st.sub);
 
-    const isLight = st.color === '#ffe800' || st.color === '#a8e63d';
+    const isLight = st.color === '#ffe800' || st.color === '#a8e63d' || st.color === '#C0C0C0';
     const textFill = isLight ? '#111' : 'white';
     const strokeC  = isLight ? 'rgba(0,0,0,0.15)' : 'rgba(0,0,0,0.5)';
 
