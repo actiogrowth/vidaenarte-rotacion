@@ -839,13 +839,13 @@ function updateScheduleInfo() {
 }
 
 // ── CONTROLS ─────────────────────────────────────────────────────────────
-function setDay(d) {
+function setDay(d, fromAuto) {
   currentDay=d; currentBlock=0;
   document.getElementById('dayTitle').textContent = DAY_NAMES[d];
   document.querySelectorAll('.day-tab').forEach((b,i)=>b.classList.toggle('active',i===d));
   document.querySelectorAll('.block-btn').forEach((b,i)=>b.classList.toggle('active',i===0));
   positionTokens(false); updateScheduleInfo();
-  if(autoInterval){ clearInterval(autoInterval); autoInterval=null; document.getElementById('playBtn').textContent='▶ Auto Play'; }
+  if(!fromAuto && autoInterval){ clearInterval(autoInterval); autoInterval=null; document.getElementById('playBtn').textContent='▶ Auto Play'; }
 }
 
 function setBlock(b) {
@@ -856,8 +856,31 @@ function setBlock(b) {
 
 function togglePlay() {
   const btn = document.getElementById('playBtn');
-  if(autoInterval){ clearInterval(autoInterval); autoInterval=null; btn.textContent='▶ Auto Play'; }
-  else { btn.textContent='⏸ Pausar'; autoInterval=setInterval(()=>setBlock((currentBlock+1)%4),2800); }
+  if(autoInterval){
+    clearInterval(autoInterval);
+    autoInterval = null;
+    btn.textContent = '▶ Auto Play';
+    return;
+  }
+
+  // Secuencia completa: avanza bloque a bloque,
+  // al terminar el bloque 3 pasa al día siguiente automáticamente
+  btn.textContent = '⏸ Pausar';
+
+  function nextStep() {
+    const nextBlock = (currentBlock + 1) % 4;
+
+    if(nextBlock === 0) {
+      // Terminó el día → avanzar al siguiente
+      const nextDay = (currentDay + 1) % 5;
+      setDay(nextDay, true);       // setDay resetea a bloque 0
+      setBlock(0);
+    } else {
+      setBlock(nextBlock);
+    }
+  }
+
+  autoInterval = setInterval(nextStep, 2800);
 }
 
 // ── LEGEND ────────────────────────────────────────────────────────────────
