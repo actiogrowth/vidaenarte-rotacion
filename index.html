@@ -36,7 +36,7 @@
 
 html, body {
   min-height: 100vh;
-  background: linear-gradient(180deg, #4FC3F7 0%, #87CEEB 35%, #B3E5FC 70%, #E1F5FE 100%);
+  background: #68A8C9;
   color: var(--text);
   font-family: 'Poppins', sans-serif;
   overflow-x: hidden;
@@ -44,6 +44,7 @@ html, body {
 
 /* ── BACKGROUND ── */
 #bg-canvas {
+  display: none;
   position: fixed;
   inset: 0;
   z-index: 0;
@@ -55,7 +56,7 @@ html, body {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
+
   opacity: 0.35;
 }
 
@@ -97,13 +98,9 @@ html, body {
   font-weight: 900;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  background-image: linear-gradient(135deg, #68A8C9 30%, #ffffff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: white;
   line-height: 1;
   transition: opacity 0.3s;
-  filter: drop-shadow(0 0 14px rgba(0,119,204,0.5)) drop-shadow(0 0 6px rgba(0,119,204,0.3));
 }
 
 .scanline {
@@ -149,21 +146,21 @@ html, body {
   opacity: 0;
   transition: opacity 0.25s;
 }
-.day-tab:nth-child(odd)  { background: rgba(163,179,183,0.35); border-color: rgba(30,100,180,0.18); color: #0A2A4A; }
-.day-tab:nth-child(even) { background: rgba(104,168,201,0.35); border-color: rgba(30,100,180,0.18); color: #0A2A4A; }
+.day-tab:nth-child(odd)  { background: #A3B3B7; border-color: #A3B3B7; color: white; }
+.day-tab:nth-child(even) { background: #A3B3B7; border-color: #A3B3B7; color: white; }
 .day-tab:hover { opacity: 0.85; }
 .day-tab:hover::before { opacity: 0.05; }
 .day-tab.active:nth-child(odd)  {
-  background: rgba(163,179,183,0.7);
-  border-color: #0077CC;
-  color: #0A2A4A;
-  box-shadow: 0 0 14px rgba(0,119,204,0.5), inset 0 0 8px rgba(0,119,204,0.1);
+  background: #8a9fa3;
+  border-color: #A3B3B7;
+  color: white;
+  box-shadow: 0 0 14px rgba(163,179,183,0.5);
   font-weight: 900;
 }
 .day-tab.active:nth-child(even) {
-  background: rgba(104,168,201,0.7);
-  border-color: #0077CC;
-  color: #0A2A4A;
+  background: #8a9fa3;
+  border-color: #A3B3B7;
+  color: white;
   box-shadow: 0 0 14px rgba(0,119,204,0.5), inset 0 0 8px rgba(0,119,204,0.1);
   font-weight: 900;
 }
@@ -453,7 +450,7 @@ html, body {
   border-radius: 6px;
   border: 1px solid var(--accent);
   background: rgba(0,119,204,0.08);
-  color: var(--accent);
+  color: white;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0,119,204,0.2);
   transition: all 0.25s;
@@ -514,7 +511,7 @@ html, body {
 <div class="app">
   <!-- HEADER -->
   <div class="header">
-    <div class="brand-line">Vida en Arte Kids · Sistema de Rotación</div>
+    <div class="brand-line">Sistema de Rotación Modular VEA Kids</div>
     <div class="day-title" id="dayTitle">Lunes</div>
     <div class="scanline"></div>
   </div>
@@ -584,21 +581,7 @@ function initParticles() {
   }
 }
 
-function drawParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (const p of particles) {
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255,255,255,${p.alpha * 0.8 + 0.2})`;
-    ctx.fill();
-    p.x += p.vx; p.y += p.vy;
-    if (p.x < 0) p.x = canvas.width;
-    if (p.x > canvas.width) p.x = 0;
-    if (p.y < 0) p.y = canvas.height;
-    if (p.y > canvas.height) p.y = 0;
-  }
-  requestAnimationFrame(drawParticles);
-}
+function drawParticles() {}
 
 resizeCanvas(); initParticles(); drawParticles();
 window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
@@ -684,7 +667,7 @@ function redrawWheel() {
                         : currentBlock===3 ? '🌿 Let\'s Relax' : null;
 
     // Colores de franja según tipo de actividad especial
-    const bandColor = currentBlock===0 ? '#22c55e'   // verde Bienvenida
+    const bandColor = currentBlock===0 ? '#ffffff'   // verde Bienvenida
                     : currentBlock===1 ? '#f97316'   // naranja Let's Eat
                     : currentBlock===3 ? '#8b5cf6'   // violeta Let's Relax
                     : null;
@@ -727,7 +710,7 @@ function redrawWheel() {
       const btx = cx + bandTextR * Math.cos(mid);
       const bty = cy + bandTextR * Math.sin(mid);
       html += `<g transform="translate(${btx},${bty}) rotate(${rot})" opacity="${opacity}">
-        <text x="0" y="4" text-anchor="middle" fill="white" font-family="Poppins,sans-serif" font-size="10" font-weight="700" paint-order="stroke" stroke="rgba(0,0,0,0.4)" stroke-width="2">${specialLabel}</text>
+        <text x="0" y="4" text-anchor="middle" fill="#1E63AB" font-family="Poppins,sans-serif" font-size="10" font-weight="700" paint-order="stroke" stroke="rgba(255,255,255,0.4)" stroke-width="2">${specialLabel}</text>
       </g>`;
 
       // Línea separadora entre franja y segmento
