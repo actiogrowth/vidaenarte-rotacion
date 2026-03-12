@@ -667,9 +667,9 @@ function redrawWheel() {
                         : currentBlock===3 ? '🌿 Let\'s Relax' : null;
 
     // Colores de franja según tipo de actividad especial
-    const bandColor = currentBlock===0 ? '#ffffff'   // verde Bienvenida
-                    : currentBlock===1 ? '#f97316'   // naranja Let's Eat
-                    : currentBlock===3 ? '#8b5cf6'   // violeta Let's Relax
+    const bandColor = currentBlock===0 ? '#ffffff'   // Bienvenida
+                    : currentBlock===1 ? '#ffffff'   // Let's Eat
+                    : currentBlock===3 ? '#ffffff'   // Let's Relax
                     : null;
 
     const lines = [st.emoji, st.label];
@@ -710,7 +710,7 @@ function redrawWheel() {
       const btx = cx + bandTextR * Math.cos(mid);
       const bty = cy + bandTextR * Math.sin(mid);
       html += `<g transform="translate(${btx},${bty}) rotate(${rot})" opacity="${opacity}">
-        <text x="0" y="4" text-anchor="middle" fill="${currentBlock===0 ? '#1E63AB' : 'white'}" font-family="Poppins,sans-serif" font-size="10" font-weight="700">${specialLabel}</text>
+        <text x="0" y="4" text-anchor="middle" fill="#1E63AB" font-family="Poppins,sans-serif" font-size="10" font-weight="700">${specialLabel}</text>
       </g>`;
 
       // Línea separadora entre franja y segmento
